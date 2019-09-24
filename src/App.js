@@ -1,9 +1,11 @@
 import NavBar from './components/navbar';
 import './App.css';
-import Counters from "./components/counters";
+// import Counters from "./components/counters";
 import React, { Component } from 'react';
+import Movies from './components/movies';
 
 class App extends Component {
+
   state = { 
         counters: [
             {id: 1, value: 4 },
@@ -12,6 +14,15 @@ class App extends Component {
             {id: 4, value: 0 }
         ]
      }
+
+     constructor() {
+        super();
+        console.log('App - Constructor');
+     }
+
+     componentDidMount() {
+         console.log('App - Mounted');
+    }
 
     handleDelete = (counterId) => {
         console.log('Event Handler Called', counterId);
@@ -44,28 +55,32 @@ class App extends Component {
         if (counters[index].value > 0) {
             counters[index].value--;
             this.setState({ counters })
-        } else {
+        }  else {
             console.log("Cannot decrement past 0!")
         }
       
     }
-render(){
-  return (
-    <div>
-      <NavBar totalCounters={this.state.counters.filter(c => c.value >0).length} />
-        <main className="container">
-          <Counters 
-            counters={this.state.counters}
-            onReset={this.handleReset} 
-            onIncrement={this.handleIncrement} 
-            onDecrement={this.handleDecrement} 
-            onDelete={this.handleDelete} 
-            />
-        </main>
-    </div>
-  );
-}
 
+    render(){
+        console.log('App - Rendered');
+        return (
+            <React.Fragment>
+                <NavBar totalCounters={this.state.counters.filter(c => c.value >0).length} />
+                <main className="container">
+                <br/>
+                <Movies/>
+                {/*
+                <Counters 
+                    counters={this.state.counters}
+                    onReset={this.handleReset} 
+                    onIncrement={this.handleIncrement} 
+                    onDecrement={this.handleDecrement} l
+                    onDelete={this.handleDelete} 
+                /> */}
+                </main>
+            </React.Fragment>
+        );
+    }
 }
 
 export default App;
